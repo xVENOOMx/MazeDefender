@@ -15,7 +15,7 @@ import SwiftUI
 class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
     
     var renderer: SCNSceneRenderer?
-    var onEachFrame: ((_ time: TimeInterval) -> ())? = nil
+    var onEachFrame: ((_ time: TimeInterval, _ render: SCNSceneRenderer) -> ())? = nil
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if self.renderer == nil {
@@ -26,7 +26,7 @@ class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
             print("We got SceneRenderer: \(type)")
         }
         
-        onEachFrame?(time)
+        onEachFrame?(time, renderer)
     }
     
     var enemyCound = 0
@@ -52,9 +52,9 @@ extension SceneRendererDelegate: SCNPhysicsContactDelegate {
             
             print(contactNode.name as Any)
             
-            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
-
-            }
+//            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
+//
+//            }
 
             if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryBody {
 

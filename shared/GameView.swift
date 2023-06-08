@@ -26,14 +26,14 @@ struct GameView: View {
             sceneRendererDelegate.onEachFrame = nil
         }
         .onAppear {
-            sceneRendererDelegate.onEachFrame = { time in
+            sceneRendererDelegate.onEachFrame = { time, renderer in
                 // Your code on every frame
                 DispatchQueue.main.async {
                     gameProperties.totemNode?.eulerAngles.y = Float(scrollAmount)
 
                     if time > gameProperties.spawnTime {
 
-                        spawnEnemy()
+                        spawnEnemy(time: time, renderer: renderer)
 
                         //0.2...1.5
                         gameProperties.spawnTime = time + TimeInterval(Float.random(in: 3.2...5.5))
@@ -47,12 +47,12 @@ struct GameView: View {
         .digitalCrownRotation($scrollAmount, from: 0, through: 360, by: 0.1, sensitivity: .low, isContinuous: true, isHapticFeedbackEnabled: false)
         }
     
-    func spawnEnemy() {
+    func spawnEnemy(time: TimeInterval, renderer: SCNSceneRenderer) {
         DispatchQueue.main.async {
             let clone = gameProperties.enemyNode.clone()
             clone.position = gameProperties.spawnNode!.presentation.worldPosition
             gameProperties.scene.rootNode.addChildNode(clone)
-            
+            //clone.update(atTime: time, with: renderer)
             clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: 10))
         }
     }
