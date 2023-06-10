@@ -15,10 +15,29 @@ class Enemy: SCNNode {
     
     override init() {
         super.init()
-        create()
+        //create()
+        createAsteroidNode()
     }
     
     func update(atTime time: TimeInterval, with renderer: SCNSceneRenderer) {
+        
+    }
+    
+    func createAsteroidNode() {
+        // Create and configure an asteroid node here
+        let asteroidGeometry = SCNSphere(radius: 1)
+        let asteroidMaterial = SCNMaterial()
+        asteroidMaterial.diffuse.contents = UIColor.gray
+        asteroidGeometry.materials = [asteroidMaterial]
+        self.geometry = asteroidGeometry
+        //self.position = SCNVector3(x: -5, y: 0, z: 0)
+        self.name = "asteroid"
+        
+        // Add physics body for collision detection
+        self.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: asteroidGeometry, options: nil))
+        self.physicsBody?.categoryBitMask = 1
+        self.physicsBody?.collisionBitMask = 6
+        self.physicsBody?.contactTestBitMask = GameConstants.shared.categoryBody | GameConstants.shared.categoryFront
         
     }
     

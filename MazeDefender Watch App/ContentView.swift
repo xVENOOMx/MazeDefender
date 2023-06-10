@@ -16,8 +16,8 @@ struct ContentView: View {
                 GameView(gameProperties: GameProperties())
                     .ignoresSafeArea()
             } else {
-                Spacer()
                 VStack {
+                    Spacer()
                     Image(systemName: "pencil.and.outline")
                     CustomButton(title: "Start") {
                         startGame = true

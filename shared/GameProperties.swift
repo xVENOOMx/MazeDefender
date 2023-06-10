@@ -7,10 +7,12 @@
 
 import Foundation
 import SceneKit
+import SpriteKit
 
 class GameProperties: ObservableObject {
     
     @Published var scene = SCNScene(named: "Assets.scnassets/Level.scn")!
+    @Published var exploidScene = SCNScene(named: "Assets.scnassets/exploid.scn")!
     
     var spawnTime: TimeInterval = 0
     
@@ -34,5 +36,13 @@ class GameProperties: ObservableObject {
         scene.rootNode.childNode(withName: "spawn", recursively: false)
     }
     
+    var spawn2Node: SCNNode? {
+        scene.rootNode.childNode(withName: "spawn2", recursively: false)
+    }
+    
     let enemyNode = Enemy()
+    
+    var exploidPartical: SCNNode? {
+        exploidScene.rootNode.childNode(withName: "explosiveNode", recursively: false)
+    }
 }

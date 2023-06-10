@@ -30,8 +30,8 @@ class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
     }
     
     var enemyCound = 0
-    var bodyCound = 0
-    var frontCount = 0
+    var HP = 3
+    var asteroidDestroied = 0
 }
 
 extension SceneRendererDelegate: SCNPhysicsContactDelegate {
@@ -50,26 +50,37 @@ extension SceneRendererDelegate: SCNPhysicsContactDelegate {
                 enemyContactNode = contact.nodeB
             }
             
-            print(contactNode.name as Any)
+            //print(contactNode.name as Any)
             
 //            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
 //
 //            }
 
             if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryBody {
-
+                self.hideNode(node: enemyContactNode)
+                self.HP -= 1
+                print("HP, \(self.HP)")
             }
-
-            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront {
-                self.frontCount += 1
-                print("front", self.frontCount)
+            
+            if contact.nodeA.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront || contact.nodeB.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
+                self.hideNode(node: enemyContactNode)
+                self.asteroidDestroied += 1
+                print("destroied: \(self.asteroidDestroied)")
             }
+//            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront {
+//                self.hideNode(node: enemyContactNode)
+//                self.asteroidDestroied += 1
+//                print("destroied: \(self.asteroidDestroied)")
+//            }
+            
+            
         }
     }
     
     func hideNode(node: SCNNode) {
         DispatchQueue.main.async {
             node.isHidden = true
+            node.removeFromParentNode()
         }
     }
 }
