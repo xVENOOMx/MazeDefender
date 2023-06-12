@@ -10,6 +10,7 @@ import SceneKit
 
 struct GameView: View {
     
+    @EnvironmentObject var gameState: GameState
     @ObservedObject var gameProperties: GameProperties
     
     @State private var scrollAmount = 0.0
@@ -19,7 +20,9 @@ struct GameView: View {
     var body: some View {
         ZStack {
             SceneView(scene: gameProperties.scene, pointOfView: gameProperties.cameraNode, delegate: sceneRendererDelegate)
+            ScoreView()
         }
+        .ignoresSafeArea()
         .focusable(true)
         .onDisappear {
             // Make sure your code disabled in background
@@ -69,9 +72,28 @@ struct GameView: View {
     }
 }
 
+struct ScoreView: View {
+    
+    @EnvironmentObject var gameState: GameState
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HStack {
+                    Text("\(gameState.score)")
+                        .padding(.leading, 30)
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+                Spacer()
+            }
+        }
+    }
+}
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(gameProperties: GameProperties())
+            .environmentObject(GameState())
     }
 }

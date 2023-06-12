@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var startGame = false
+    @EnvironmentObject var gameState: GameState
+    @StateObject private var gameProperties = GameProperties()
     
     var body: some View {
         ZStack {
-            if startGame {
-                GameView(gameProperties: GameProperties())
+            if gameState.startGame {
+                GameView(gameProperties: gameProperties)
                     .ignoresSafeArea()
             } else {
                 VStack {
                     Spacer()
                     Image(systemName: "pencil.and.outline")
                     CustomButton(title: "Start") {
-                        startGame = true
+                        gameState.restartGameState()
+                        gameState.startGame = true
                     }
-                    CustomButton(title: "Score") {
-                        startGame = true
+                    CustomButton(title: "Last Score: \(gameState.score)") {
+                        gameState.startGame = true
                     }
                 }
             }
@@ -58,6 +60,6 @@ struct CustomButton: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(GameState())
     }
 }

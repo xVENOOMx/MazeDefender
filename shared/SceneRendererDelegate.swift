@@ -13,7 +13,7 @@ import SwiftUI
 // For handling touches in SceneView we need SCNSceneRenderer,
 // but SwiftUI's SceneView does not provide it.
 class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
-    
+
     var renderer: SCNSceneRenderer?
     var onEachFrame: ((_ time: TimeInterval, _ render: SCNSceneRenderer) -> ())? = nil
     
@@ -28,20 +28,16 @@ class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
         
         onEachFrame?(time, renderer)
     }
-    
-    var enemyCound = 0
-    var HP = 3
-    var asteroidDestroied = 0
 }
 
 extension SceneRendererDelegate: SCNPhysicsContactDelegate {
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-
+        
         DispatchQueue.main.async {
             var contactNode: SCNNode!
             var enemyContactNode: SCNNode!
-        
+            
             if contact.nodeA.name == "enemy" {
                 contactNode = contact.nodeB
                 enemyContactNode = contact.nodeA
@@ -50,30 +46,21 @@ extension SceneRendererDelegate: SCNPhysicsContactDelegate {
                 enemyContactNode = contact.nodeB
             }
             
-            //print(contactNode.name as Any)
-            
-//            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
-//
-//            }
-
             if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryBody {
                 self.hideNode(node: enemyContactNode)
-                self.HP -= 1
-                print("HP, \(self.HP)")
+                //GameState.shared.health -= 1
+                //print(GameState.shared.health)
+                //self.gameState.health -= 1
+                //print(self.gameState.health)
             }
             
             if contact.nodeA.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront || contact.nodeB.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
+                //GameState.shared.score += 1
+                //print(GameState.shared.score)
+                //self.gameState.score += 1
+                //print(self.gameState.score)
                 self.hideNode(node: enemyContactNode)
-                self.asteroidDestroied += 1
-                print("destroied: \(self.asteroidDestroied)")
             }
-//            if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront {
-//                self.hideNode(node: enemyContactNode)
-//                self.asteroidDestroied += 1
-//                print("destroied: \(self.asteroidDestroied)")
-//            }
-            
-            
         }
     }
     

@@ -11,9 +11,8 @@
 		3C37A35C2A32030900DC374A /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C37A35B2A32030900DC374A /* GameConstants.swift */; };
 		3C37A3602A323F9F00DC374A /* earth_map.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3C37A35F2A323F9F00DC374A /* earth_map.jpeg */; };
 		3C37A3622A32F6BA00DC374A /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C37A3612A32F6BA00DC374A /* fire.png */; };
-		3CD0D96A29F1713D004BCD3B /* Geme Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD0D96929F1713D004BCD3B /* Geme Color.png */; };
+		3CB6D8822A35EFE1000E37E7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB6D8812A35EFE1000E37E7 /* GameState.swift */; };
 		3CD0D96B29F174FE004BCD3B /* Geme Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD0D96929F1713D004BCD3B /* Geme Color.png */; };
-		3CD0D96D29F1773C004BCD3B /* circle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD0D96C29F1773C004BCD3B /* circle_01.png */; };
 		3CD0D96E29F1773E004BCD3B /* circle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD0D96C29F1773C004BCD3B /* circle_01.png */; };
 		3CE4DF6029D5F837001880C1 /* MazeDefender Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3CE4DF5F29D5F837001880C1 /* MazeDefender Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3CE4DF6529D5F837001880C1 /* MazeDefenderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4DF6429D5F837001880C1 /* MazeDefenderApp.swift */; };
@@ -25,16 +24,6 @@
 		3CE4DF7D29D5F8F4001880C1 /* GameProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4DF7C29D5F8F4001880C1 /* GameProperties.swift */; };
 		3CF23E5329D6008E001403E8 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF23E5229D6008E001403E8 /* Enemy.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		3CE4DF6129D5F837001880C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3CE4DF5329D5F837001880C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3CE4DF5E29D5F837001880C1;
-			remoteInfo = "MazeDefender Watch App";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3CE4DF7229D5F839001880C1 /* Embed Watch Content */ = {
@@ -55,6 +44,7 @@
 		3C37A35B2A32030900DC374A /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		3C37A35F2A323F9F00DC374A /* earth_map.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth_map.jpeg; sourceTree = "<group>"; };
 		3C37A3612A32F6BA00DC374A /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
+		3CB6D8812A35EFE1000E37E7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		3CD0D96929F1713D004BCD3B /* Geme Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Geme Color.png"; sourceTree = "<group>"; };
 		3CD0D96C29F1773C004BCD3B /* circle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_01.png; sourceTree = "<group>"; };
 		3CE4DF5929D5F837001880C1 /* MazeDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +77,7 @@
 				3C1065E32A06430C00704434 /* GameView.swift */,
 				3CE4DF7C29D5F8F4001880C1 /* GameProperties.swift */,
 				3C37A35B2A32030900DC374A /* GameConstants.swift */,
+				3CB6D8812A35EFE1000E37E7 /* GameState.swift */,
 				3CF23E5229D6008E001403E8 /* Enemy.swift */,
 			);
 			path = shared;
@@ -155,7 +146,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3CE4DF6229D5F837001880C1 /* PBXTargetDependency */,
 			);
 			name = MazeDefender;
 			productName = MazeDefender;
@@ -221,8 +211,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CD0D96A29F1713D004BCD3B /* Geme Color.png in Resources */,
-				3CD0D96D29F1773C004BCD3B /* circle_01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,20 +240,13 @@
 				3CF23E5329D6008E001403E8 /* Enemy.swift in Sources */,
 				3CE4DF7929D5F86D001880C1 /* SceneRendererDelegate.swift in Sources */,
 				3C37A35C2A32030900DC374A /* GameConstants.swift in Sources */,
+				3CB6D8822A35EFE1000E37E7 /* GameState.swift in Sources */,
 				3C1065E42A06430C00704434 /* GameView.swift in Sources */,
 				3CE4DF6529D5F837001880C1 /* MazeDefenderApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3CE4DF6229D5F837001880C1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3CE4DF5E29D5F837001880C1 /* MazeDefender Watch App */;
-			targetProxy = 3CE4DF6129D5F837001880C1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3CE4DF6D29D5F839001880C1 /* Debug */ = {
@@ -403,7 +384,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Debug;
 		};
@@ -434,7 +415,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Release;
 		};
