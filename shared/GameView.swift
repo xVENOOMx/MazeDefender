@@ -20,7 +20,7 @@ struct GameView: View {
     var body: some View {
         ZStack {
             SceneView(scene: gameProperties.scene, pointOfView: gameProperties.cameraNode, delegate: sceneRendererDelegate)
-            ScoreView()
+            //ScoreView()
         }
         .ignoresSafeArea()
         .focusable(true)
@@ -42,6 +42,13 @@ struct GameView: View {
                         //0.2...1.5
                         gameProperties.spawnTime = time + TimeInterval(Float.random(in: 2...5))
                     }
+                    
+                    if time > gameProperties.commetSpawnTime {
+                        
+                        spawnCommet()
+                        
+                        gameProperties.commetSpawnTime = time + TimeInterval(Float.random(in: 15...20))
+                    }
                 }
             }
         }
@@ -49,25 +56,42 @@ struct GameView: View {
             //print("newValue", newValue)
         }
         .digitalCrownRotation($scrollAmount, from: 0, through: 999, by: 0.0001, sensitivity: .low, isContinuous: true, isHapticFeedbackEnabled: false)
+    }
+    
+    func spawnCommet() {
+        DispatchQueue.main.async {
+            if let clone = gameProperties.commetNode?.clone() {
+                if gameProperties.commetFrontSpawn {
+                    clone.position = gameProperties.spawnNode!.presentation.worldPosition
+                    clone.eulerAngles.y = 90
+                } else {
+                    clone.position = gameProperties.spawn2Node!.presentation.worldPosition
+                    clone.eulerAngles.y = -90
+                }
+                gameProperties.scene.rootNode.addChildNode(clone)
+                clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: TimeInterval(Int.random(in: 7...10))))
+            }
+            gameProperties.commetFrontSpawn.toggle()
         }
+    }
     
     func spawnEnemy() {
         DispatchQueue.main.async {
-            let clone = gameProperties.enemyNode.clone()
-            clone.position = gameProperties.spawnNode!.presentation.worldPosition
-            gameProperties.scene.rootNode.addChildNode(clone)
-            //clone.update(atTime: time, with: renderer)
-            clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: TimeInterval(Int.random(in: 5...7))))
+            if let clone = gameProperties.asteroidNode?.clone() {
+                clone.position = gameProperties.spawnNode!.presentation.worldPosition
+                gameProperties.scene.rootNode.addChildNode(clone)
+                clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: TimeInterval(Int.random(in: 5...7))))
+            }
         }
     }
     
     func spawnEnemy2() {
         DispatchQueue.main.async {
-            let clone = gameProperties.enemyNode.clone()
-            clone.position = gameProperties.spawn2Node!.presentation.worldPosition
-            gameProperties.scene.rootNode.addChildNode(clone)
-            //clone.update(atTime: time, with: renderer)
-            clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: TimeInterval(Int.random(in: 4...5))))
+            if let clone = gameProperties.asteroidNode?.clone() {
+                clone.position = gameProperties.spawn2Node!.presentation.worldPosition
+                gameProperties.scene.rootNode.addChildNode(clone)
+                clone.runAction(SCNAction.move(to: gameProperties.totemBodyNode!.position, duration: TimeInterval(Int.random(in: 4...5))))
+            }
         }
     }
 }

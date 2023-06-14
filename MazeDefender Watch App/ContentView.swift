@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @EnvironmentObject var gameState: GameState
     @StateObject private var gameProperties = GameProperties()
     
@@ -30,6 +31,7 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(gameState)
     }
 }
 

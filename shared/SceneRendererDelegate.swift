@@ -13,6 +13,8 @@ import SwiftUI
 // For handling touches in SceneView we need SCNSceneRenderer,
 // but SwiftUI's SceneView does not provide it.
 class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
+    
+    let gameState = GameState.shared
 
     var renderer: SCNSceneRenderer?
     var onEachFrame: ((_ time: TimeInterval, _ render: SCNSceneRenderer) -> ())? = nil
@@ -21,6 +23,7 @@ class SceneRendererDelegate: NSObject, SCNSceneRendererDelegate {
         if self.renderer == nil {
             self.renderer = renderer
             let type = type(of: renderer)
+            renderer.isJitteringEnabled = false
             renderer.scene?.physicsWorld.contactDelegate = self
             renderer.isPlaying = true
             print("We got SceneRenderer: \(type)")
@@ -47,18 +50,17 @@ extension SceneRendererDelegate: SCNPhysicsContactDelegate {
             }
             
             if contactNode.physicsBody?.categoryBitMask == GameConstants.shared.categoryBody {
+                
                 self.hideNode(node: enemyContactNode)
-                //GameState.shared.health -= 1
-                //print(GameState.shared.health)
-                //self.gameState.health -= 1
-                //print(self.gameState.health)
+                self.gameState.getDemage()
+                print(self.gameState.health)
             }
             
             if contact.nodeA.physicsBody?.categoryBitMask == GameConstants.shared.categoryFront || contact.nodeB.physicsBody?.categoryBitMask == GameConstants.shared.categoryEnemy {
-                //GameState.shared.score += 1
-                //print(GameState.shared.score)
-                //self.gameState.score += 1
-                //print(self.gameState.score)
+                
+                self.gameState.addScore()
+                print(self.gameState.score)
+                
                 self.hideNode(node: enemyContactNode)
             }
         }

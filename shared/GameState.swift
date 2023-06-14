@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import SceneKit
 
 class GameState: ObservableObject {
     
     static let shared = GameState()
     
     @Published var startGame = false
+    @Published var frontCommetSpawn = false
     @Published var score = 0
     @Published var health = 3
     

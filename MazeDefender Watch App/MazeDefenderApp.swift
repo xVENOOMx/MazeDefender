@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct MazeDefender_Watch_AppApp: App {
     
-    @StateObject private var gameState: GameState = GameState()
+    @StateObject var gameState: GameState = GameState()
     
     var body: some Scene {
         WindowGroup {

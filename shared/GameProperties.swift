@@ -11,11 +11,30 @@ import SpriteKit
 
 class GameProperties: ObservableObject {
     
-    @Published var scene = SCNScene(named: "Assets.scnassets/Level.scn")!
+    static let shared = GameProperties()
     
-    let enemyNode = Enemy()
+    @Published var scene = SCNScene(named: "Assets.scnassets/Level.scn")!
+    @Published var commetScene = SCNScene(named: "Assets.scnassets/Commet.scn")!
+    @Published var asteroidScene = SCNScene(named: "Assets.scnassets/Asteroid.scn")!
+    
+    //let enemyNode = Enemy()
     
     var spawnTime: TimeInterval = 0
+    var commetSpawnTime: TimeInterval = 0
+    
+    var commetFrontSpawn = false
+    
+    var asteroidNode: SCNNode? {
+        let asteroid = asteroidScene.rootNode.childNode(withName: "asteroid", recursively: false)
+        asteroid?.physicsBody?.contactTestBitMask = GameConstants.shared.categoryBody | GameConstants.shared.categoryFront
+        return asteroid
+    }
+    
+    var commetNode: SCNNode? {
+        let commet = commetScene.rootNode.childNode(withName: "commet", recursively: false)
+        commet?.physicsBody?.contactTestBitMask = GameConstants.shared.categoryBody | GameConstants.shared.categoryFront
+        return commet
+    }
     
     var cameraNode: SCNNode? {
         scene.rootNode.childNode(withName: "camera", recursively: false)
